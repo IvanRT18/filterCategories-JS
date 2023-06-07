@@ -44,10 +44,27 @@ const displayButtons = () => {
   companiesContainer.innerHTML = uniqueCompanies
     .map(
       (company) =>
-        `<button class="company-btn" data-id=${company}}>${company}</button>`
+        `<button class="company-btn" data-id=${company}>${company}</button>`
     )
     .join("");
 };
+
+//Filtrar segun el boton que se haga click
+companiesContainer.addEventListener("click", (e) => {
+  const el = e.target;
+  if (el.classList.contains("company-btn")) {
+    console.log(el.dataset.id);
+    if (el.dataset.id === "all") {
+      filteredArray = [...products];
+    } else {
+      filteredArray = products.filter((product) => {
+        return product.company === el.dataset.id;
+      });
+    }
+    input.value = "";
+    displayProducts();
+  }
+});
 
 //Llamadas
 displayButtons();
